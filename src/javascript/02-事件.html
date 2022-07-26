@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+
+        //onload事件
+
+        // function onloadFun() {
+        //     alert("静态注册onload事件");
+        //     alert("Hello!")
+        // }
+
+        /*
+        动态注册onload，固定写法
+         */
+        // window.onload = function() {
+        //     alert("动态注册onload事件")
+        // }
+
+        //onclick事件
+
+        function onclickFun() {
+            alert("静态注册onclick事件");
+            alert("Hello!")
+        }
+
+        /*
+        动态注册onclick
+         */
+        window.onclick = function () {
+            /*
+            获取标签对象
+            document -> JavaScript语言提供对象(表示页面文档)
+             */
+            let btobj = document.getElementById("button2");
+            //标准格式
+            btobj.onclick = function () {
+                alert("动态注册onclick事件");
+                alert("Hello!");
+            }
+        }
+
+        //onblur事件
+
+        function onblurFun() {
+            console.log("静态注册失去焦点事件")
+        }
+        
+        window.onblur = function () {
+            let ps = document.getElementById("password");
+            ps.onblur = function () {
+                console.log("动态注册失去焦点事件")
+            }
+        }
+
+        //onchange事件
+
+        function onchangeFun() {
+            alert("静态改变事件")
+        }
+
+        window.onchange = function () {
+            let addr = document.getElementById("address");
+            addr.onchange = function () {
+                alert("动态改变事件")
+            }
+        }
+
+        //onsubmit事件
+
+        function onsubmitFun() {
+            alert("静态表单提交---不合法")
+            return false;
+        }
+
+        window.onsubmit = function () {
+            let form = document.getElementById("form1");
+            form.onsubmit = function () {
+                alert("动态表单提交---不合法")
+                return false;
+            }
+        }
+
+    </script>
+</head>
+
+<!--<body onload="alert('静态注册onload事件')">-->
+<!--<body onload="onloadFun()">-->
+<body>
+
+    <!-- 静态注册onclick事件 -->
+    <button onclick="onclickFun()">按钮1</button>
+    <button id="button2">按钮2</button><br/>
+
+    用户名称：<input type="text" onblur="onblurFun()"/><br/>
+    用户密码：<input id="password" type="password"/><br/>
+    国籍：
+    <select onchange="onchangeFun()">
+        <option>--国籍--</option>
+        <option>中国</option>
+        <option>美国</option>
+        <option>英国</option>
+    </select>
+    住址：
+    <select id="address">
+        <option>--地址--</option>
+        <option>中国</option>
+        <option>美国</option>
+        <option>英国</option>
+    </select><br/>
+    <!-- onsubmit="return onsubmitFun()" return false 阻止提交， true 不阻止 -->
+    <form action="http://localhost" method="get" onsubmit="return onsubmitFun()">
+        <input type="submit" value="静态注册"/>
+    </form>
+    <form action="http://localhost" method="get" id="form1">
+        <input type="submit" value="动态注册"/>
+    </form><br/>
+
+</body>
+</html>

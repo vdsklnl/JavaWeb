@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--
+
+        let
+            1.块级作用域{}
+                作用域只在其所在的代码块，一个{}可以看作一个作用域
+                if语句和for语句里面的{ }也属于块作用域，很适合在for循环中使用，在作用域之外变量不能被访问。
+
+            2.let不允许重复声明
+                let不允许在相同的作用域内，重复声明同一个变量，let声明不使用会报错
+
+            3.不存在变量提升
+                只有用var 声明的变量才会有变量提升，let和const都不用考虑
+
+            4.脱离顶层作用域
+                var声明的变量，可以通过window.变量名的形式使用。但是用let/const声明的变量不会绑定
+                在顶层作用域window或global中
+
+            5.暂时性死区 TDZ
+                变量在作用域内已经存在，必须在let/const声明后面使用。只要一进入当前作用域，所要使用的
+                变量就已经存在，但是不可获取，只有等到声明变量的那一行代码出现，才可以获取和使用该变量
+
+        const
+            1.const不允许重复声明，也不存在变量提升，只在声明所在的块级作用域内有效，同样存在暂时性死区，
+            只能在声明位置的后面使用
+
+            2.const 声明一个只读的常量，一旦声明，常量值就不可以改变。所以const一旦声明就必须立即初始化。
+                只声明，不赋值，会报错（注意：var/let只声明不赋值：undefined）
+                不能重新赋值const定义的值，但是可以修改const’声明的对象类型。
+
+            3.const 保存的是指向数组或对象的指针。对于基本类型值，使用const声明的变量是不可以被修改的。
+                但是对于对象，指针依然不能被修改，但是指针指向内容可以修改。
+
+            4.const声明的对象不能重新赋值，只能赋值里面的属性值，let声明的变量(对象)可以重新赋值
+
+        注释：
+            1. js并不是在定义一个变量的时候，声明完成之后立即赋值，而是把所有用到的变量全部声明之后，
+            再到变量的定义的地方进行赋值，变量的声明的过程就是变量的提升。
+            变量声明到作用域前，赋值在变量原本定义的位置。
+
+            2. 函数的提升和变量的提升类似，都是提升到作用域的最开始的位置，只不过变量的提升是分两步的，
+            第一步是变量声明的提升，第二步是变量的赋值。而函数的提升是直接将整个函数整体提升到作用域的
+            最开始位置，相当于剪切函数。
+
+            3. 只有声明的变量和函数才会进行提升，隐式全局变量不会提升。
+
+            4. console 是JavaScript语言提供向浏览器控制台打印输出，用于测试使用
+            console.log 在浏览器控制台中查看调用时变量值或者表达式 F12打开
+
+    -->
+
+    <script type="text/javascript">
+        let i;
+        // alert(i);  //undefined
+
+        i = 1;
+        // typeof 显示变量类型
+        // alert(typeof i); //number
+
+        i = "vdsklnl"
+        // alert(typeof i); //String
+
+        /*
+        let a = 1;
+        let b = "a";
+        alert(a * b); //NAN，无法通过运算获得
+         */
+
+        /*
+        其余同Java
+        let a = 1;
+        let b = "1";
+        alert(a == b); //等于，比较字面数值 true
+        alert(a === b); //全等于， 比较变量类型 false
+         */
+
+        /*
+        JavaScript中，所有变量均可以作为boolean类型变量使用
+        0、null、undefined、""(空字符串)均为false
+
+        逻辑运算符：
+            && 且运算
+                1.表达式全为真，返回最后表达式值
+                2.表达式有假，返回第一个假表达式值
+            || 或运算
+                1.表达式全为假，返回最后表达式值
+                2.表达式有真，返回第一个真表达式值
+            当&&、||运算有结果后，不再执行后续判断
+
+         */
+        // let a = 0; //false
+        // if (a) {
+        //     alert("真")
+        // } else {
+        //     alert("假")
+        // }
+
+        // let a = "abc";
+        // let b = true;
+        // let c = false;
+        // let d = null;
+        //
+        // alert(a && b); //true
+        // alert(b && a); //abc
+        // alert(a && c); //false
+        // alert(a && d && c); //null
+
+        /*
+        数组定义：
+        var 名 = []; 空数组
+        var 名 = [1, 'abc', true]; 定义元素
+         */
+
+        // let arr = [];
+        // // alert(arr.length); //0
+        // arr[0] = 12;
+        // alert(arr[0]); //12
+        // // alert(arr.length); //1
+        // arr[2] = true;
+        // alert(arr.length); //3 直接扩容，但需要赋值，不赋值则无效
+        // console.log(arr[1]); //undefined
+
+        /*
+        函数定义：
+            1.function 关键字定义 function 函数名(形参列表){ 函数体 }
+                形参列表只需定义个数，无需定义类型
+                存在返回值，直接在函数体中使用return 关键字
+            2.var 函数名 = function(形参列表) { 函数体 };
+
+        函数调用才会执行
+        函数重载会覆盖定义，只有后面的函数生效
+
+        function 定义函数中，存在隐形参数 arguments ，不需要定义，可以获取参数变量，类似Java可变长参数（数组）
+         */
+        // function fun1(a, b) {
+        //     return a*b;
+        // }
+        // alert(fun1(10, 10));
+        // let fun = function (a, b) {
+        //     return a + b;
+        // };
+        // alert(fun(1, 1));
+        // function sum(num1, num2) { //定义两个参数，但不影响arguments可变长特性
+        //     let result = 0;
+        //     for (let i = 0;i < arguments.length;i++) {
+        //         if (typeof arguments[i] == "number")
+        //             result += arguments[i];
+        //     }
+        //     return result;
+        // }
+        // alert(sum(1, 2, 3, 4, 5, 6, 7, 8, 9, "abc", 'a', 10)); //55
+        // alert(typeof 'a'); //String
+
+        /*
+                自定义对象 object形式：
+                    1. var 对象名 = new Object();
+                        对象名.属性名 = ***;
+                        对象名.函数名 = function(){};
+                    2. var 对象名 = {
+                                属性名：值，
+                                函数名：function() {},
+                                属性名：值
+                            };
+                 */
+        // let obj = new Object();
+        // obj.name = "vdsklnl";
+        // obj.age = 18;
+        // obj.fun = function() {
+        //     alert("Name:" + this.name + ", Age:" + this.age)
+        // }
+        // obj.fun();
+        // let obj = {
+        //     name:"vdsklnl",
+        //     age:18,
+        //     fun:function () {alert("Name:" + this.name + ", Age:" + this.age)}
+        // }
+        // obj.fun();
+
+    </script>
+</head>
+<body>
+</body>
+</html>

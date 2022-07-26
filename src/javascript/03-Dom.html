@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+
+        //创建<div></div>段落节点
+        //需要在页面加载完成，读取body后才可以创建
+        window.onload = function () {
+            let element = documen t.createElement("div");
+            element.innerHTML = "嗨嗨嗨";
+            document.body.appendChild(element);
+        }
+
+        /*
+         * 需求：用户点击校验按钮，获取输入框内容，验证是否合法
+         * 规则：字母、数字、下划线组成，长度5-12位
+         */
+        function onclickFun() {
+            let username = document.getElementById("username");
+            let value = username.value;
+            let patt = /^\w{5,12}$/;
+            /*
+             * 正则表达式：(具体见说明文档  尚硅谷JavaWeb经典版本\资料\02-javascript\笔记\w3cschool菜鸟教程 新版本.chm)
+             * ^ $表示字符串完全匹配
+             * \w 表示字母数字下划线
+             * {5,12} 表示5-12位
+             */
+            //test()方法用于测试字符串是否符合规则
+            let unSpan = document.getElementById("usernameSpan");
+            if (patt.test(value)) {
+                //innerHTML 表示起始、结束标签中内容，可读可写
+                unSpan.innerHTML = "<img src=\"right.png\" width=\"14\" height=\"14\">"
+            } else {
+                unSpan.innerHTML = "<img src=\"wrong.png\" width=\"14\" height=\"14\">"
+            }
+        }
+
+        /*
+         * 实现选择框操作
+         */
+        function checkAll() {
+            //选中全部复选框
+            /*
+             * 获取多个标签(dom)对象集合，同数组操作，顺序为html页面从上到下顺序
+             * checked属性表示复选框勾选状态，选中为true，属性可读可写
+             */
+            let hobbies = document.getElementsByName("hobby");
+            for (let i = 0;i < hobbies.length;i++) {
+                hobbies[i].checked = true;
+            }
+        }
+        
+        function checkNone() {
+            //全不选复选框
+            let hobbies = document.getElementsByName("hobby");
+            for (let i = 0;i < hobbies.length;i++) {
+                hobbies[i].checked = false;
+            }
+        }
+        
+        function checkReverse() {
+            //反选复选框
+            let hobbies = document.getElementsByName("hobby");
+            for (let i = 0;i < hobbies.length;i++) {
+                hobbies[i].checked = !hobbies[i].checked;
+            }
+        }
+
+        /*
+         * getElementsByTagName：当未给标签赋予name或id属性时，也可直接通过标签名访问对象
+         */
+    </script>
+</head>
+<body>
+    用户名：<input type="text" id="username" value="abc"/>
+    <span id="usernameSpan" style="color: red"></span>
+    <button onclick="onclickFun()">校验</button>
+    <br/>
+    兴趣爱好：
+    <input type="checkbox" name="hobby" value="java">Java
+    <input type="checkbox" name="hobby" value="python">Python
+    <input type="checkbox" name="hobby" value="cpp">C++
+    <br/>
+    <button onclick="checkAll()">全选</button>
+    <button onclick="checkNone()">全不选</button>
+    <button onclick="checkReverse()">反选</button>
+</body>
+</html>
